@@ -1,13 +1,22 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { CheckCircle, AlertCircle, HelpCircle } from "lucide-react";
+import { CheckCircle, AlertCircle, HelpCircle, MoreVertical, Edit, Trash } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { 
+  DropdownMenu, 
+  DropdownMenuContent, 
+  DropdownMenuItem, 
+  DropdownMenuSeparator, 
+  DropdownMenuTrigger 
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
 
 export type SupplierComplianceStatus = "verified" | "pending" | "breached";
 export type SupplierTrustLevel = "verified" | "gold" | "platinum";
 
 interface SupplierCardProps {
+  id: string;
   name: string;
   country: string;
   category: string;
@@ -15,9 +24,13 @@ interface SupplierCardProps {
   complianceStatus: SupplierComplianceStatus;
   trustLevel?: SupplierTrustLevel;
   image?: string;
+  onEdit?: () => void;
+  onDelete?: () => void;
+  onView?: () => void;
 }
 
 export function SupplierCard({
+  id,
   name,
   country,
   category,
@@ -25,6 +38,9 @@ export function SupplierCard({
   complianceStatus,
   trustLevel,
   image,
+  onEdit,
+  onDelete,
+  onView,
 }: SupplierCardProps) {
   const getRiskColor = (score: number) => {
     if (score < 30) return "text-risk-safe";
@@ -58,7 +74,42 @@ export function SupplierCard({
   };
 
   return (
-    <div className="guardian-card p-4">
+    <div className="guardian-card p-4 relative">
+      {/* Actions dropdown */}
+      <div className="absolute top-2 right-2">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" size="icon" className="h-8 w-8">
+              <MoreVertical className="h-4 w-4" />
+              <span className="sr-only">Open menu</span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            {onView && (
+              <DropdownMenuItem onClick={onView}>View Details</DropdownMenuItem>
+            )}
+            {onEdit && (
+              <DropdownMenuItem onClick={onEdit}>
+                <Edit className="mr-2 h-4 w-4" />
+                Edit
+              </DropdownMenuItem>
+            )}
+            {onDelete && (
+              <>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem 
+                  onClick={onDelete}
+                  className="text-risk-high focus:text-risk-high"
+                >
+                  <Trash className="mr-2 h-4 w-4" />
+                  Delete
+                </DropdownMenuItem>
+              </>
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+
       <div className="flex items-center space-x-3">
         {image ? (
           <img
@@ -103,12 +154,6 @@ export function SupplierCard({
             riskScore >= 30 && riskScore < 60 && "bg-risk-low/20",
             riskScore >= 60 && riskScore < 80 && "bg-risk-medium/20",
             riskScore >= 80 && "bg-risk-high/20"
-          )}
-          indicatorClassName={cn(
-            riskScore < 30 && "bg-risk-safe",
-            riskScore >= 30 && riskScore < 60 && "bg-risk-low",
-            riskScore >= 60 && riskScore < 80 && "bg-risk-medium",
-            riskScore >= 80 && "bg-risk-high"
           )}
         />
       </div>
