@@ -157,14 +157,14 @@ export default function SupplyChain() {
               </DropdownMenu>
               
               <Select 
-                value={riskThreshold?.toString() || ""} 
-                onValueChange={(value) => setRiskThreshold(value ? parseInt(value) : null)}
+                value={riskThreshold?.toString() || "any"} 
+                onValueChange={(value) => setRiskThreshold(value === "any" ? null : parseInt(value))}
               >
                 <SelectTrigger className="w-[180px]">
                   <SelectValue placeholder="Risk Threshold" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Any Risk Level</SelectItem>
+                  <SelectItem value="any">Any Risk Level</SelectItem>
                   <SelectItem value="70">High Risk (70+)</SelectItem>
                   <SelectItem value="50">Medium Risk (50+)</SelectItem>
                   <SelectItem value="30">Low Risk (30+)</SelectItem>
