@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -38,7 +38,7 @@ export function SupplierDialog({
   );
 
   // Reset form when dialog opens/closes or supplier changes
-  useState(() => {
+  useEffect(() => {
     if (open && supplier) {
       setFormData(supplier);
     } else if (open && !supplier) {
@@ -51,7 +51,7 @@ export function SupplierDialog({
         trustLevel: "verified"
       });
     }
-  });
+  }, [open, supplier]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

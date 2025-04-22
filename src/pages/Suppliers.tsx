@@ -4,7 +4,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { SupplierCard } from "@/components/dashboard/SupplierCard";
 import { Input } from "@/components/ui/input";
-import { Search, PlusCircle, Filter } from "lucide-react";
+import { Search, PlusCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Supplier, SupplierCategory } from "@/types/supplier";
 import { supplierService } from "@/services/supplierService";
@@ -133,7 +133,7 @@ export default function Suppliers() {
                 <SelectValue placeholder="All Categories" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Categories</SelectItem>
+                <SelectItem value="all-categories">All Categories</SelectItem>
                 {categories.map((category) => (
                   <SelectItem key={category} value={category}>
                     {category}

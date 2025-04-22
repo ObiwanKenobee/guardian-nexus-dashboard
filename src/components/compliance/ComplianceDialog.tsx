@@ -112,7 +112,7 @@ export function ComplianceDialog({
           <div className="space-y-2">
             <Label htmlFor="supplierId">Supplier</Label>
             <Select 
-              value={formData.supplierId}
+              value={formData.supplierId || ""}
               onValueChange={handleSupplierChange}
               disabled={isEditing}
             >
