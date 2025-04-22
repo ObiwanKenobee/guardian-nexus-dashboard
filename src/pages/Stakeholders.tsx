@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,6 +8,8 @@ import { Check, Copy, Download, Share2, QrCode } from "lucide-react";
 import { toast } from "sonner";
 import { Slider } from "@/components/ui/slider";
 import { ResponsiveContainer, PieChart, Pie, Cell, Legend, Tooltip } from "recharts";
+import { Badge } from "@/components/ui/badge";
+import { Label } from "@/components/ui/label";
 
 export default function Stakeholders() {
   const [copied, setCopied] = useState(false);
