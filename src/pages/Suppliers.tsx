@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { SupplierCard } from "@/components/dashboard/SupplierCard";
@@ -21,7 +21,7 @@ export default function Suppliers() {
   const queryClient = useQueryClient();
 
   // Fetch suppliers
-  const { data: suppliers = [], isLoading } = useQuery({
+  const { data: suppliers = [], isLoading } = useQuery<Supplier[]>({
     queryKey: ['suppliers'],
     queryFn: supplierService.getAll.bind(supplierService),
   });

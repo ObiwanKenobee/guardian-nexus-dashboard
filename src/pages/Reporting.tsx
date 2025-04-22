@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { FileDown, Filter, Plus, Download, Calendar, FileText, Search } from "lucide-react";
 import { reportService } from "@/services/reportService";
-import { ReportType, ReportFormat } from "@/types/report";
+import { ReportType, ReportFormat, Report } from "@/types/report";
 import { toast } from "sonner";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ReportDialog } from "@/components/reports/ReportDialog";
@@ -29,7 +29,7 @@ export default function Reporting() {
   const queryClient = useQueryClient();
 
   // Fetch reports
-  const { data: reports = [], isLoading } = useQuery({
+  const { data: reports = [], isLoading } = useQuery<Report[]>({
     queryKey: ['reports'],
     queryFn: reportService.getAll.bind(reportService),
   });

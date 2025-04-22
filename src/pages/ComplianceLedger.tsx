@@ -21,6 +21,7 @@ import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { supplierService } from "@/services/supplierService";
 import { ComplianceTimeline } from "@/components/compliance/ComplianceTimeline";
+import { Supplier } from "@/types/supplier";
 
 export default function ComplianceLedger() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -29,13 +30,13 @@ export default function ComplianceLedger() {
   const queryClient = useQueryClient();
 
   // Fetch compliance records
-  const { data: complianceRecords = [], isLoading } = useQuery({
+  const { data: complianceRecords = [], isLoading } = useQuery<ComplianceRecord[]>({
     queryKey: ['complianceRecords'],
     queryFn: complianceService.getAll.bind(complianceService),
   });
 
   // Fetch suppliers for the dialog
-  const { data: suppliers = [] } = useQuery({
+  const { data: suppliers = [] } = useQuery<Supplier[]>({
     queryKey: ['suppliers'],
     queryFn: supplierService.getAll.bind(supplierService),
   });

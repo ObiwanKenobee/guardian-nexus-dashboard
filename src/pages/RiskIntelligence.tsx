@@ -20,6 +20,7 @@ import {
 import { supplierService } from "@/services/supplierService";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RiskScorecard } from "@/components/risk/RiskScorecard";
+import { Supplier } from "@/types/supplier";
 
 export default function RiskIntelligence() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -29,13 +30,13 @@ export default function RiskIntelligence() {
   const queryClient = useQueryClient();
 
   // Fetch risk alerts
-  const { data: alerts = [], isLoading } = useQuery({
+  const { data: alerts = [], isLoading } = useQuery<RiskAlert[]>({
     queryKey: ['riskAlerts'],
     queryFn: riskAlertService.getAll.bind(riskAlertService),
   });
 
   // Fetch suppliers for reference
-  const { data: suppliers = [] } = useQuery({
+  const { data: suppliers = [] } = useQuery<Supplier[]>({
     queryKey: ['suppliers'],
     queryFn: supplierService.getAll.bind(supplierService),
   });

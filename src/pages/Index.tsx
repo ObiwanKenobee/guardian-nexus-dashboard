@@ -136,6 +136,7 @@ const Index = () => {
               {supplierData.map((supplier) => (
                 <SupplierCard
                   key={supplier.id}
+                  id={supplier.id}
                   name={supplier.name}
                   country={supplier.country}
                   category={supplier.category}
